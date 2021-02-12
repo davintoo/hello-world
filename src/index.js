@@ -13,7 +13,9 @@ const COUNTER_FILE = '/mnt/counter/file.txt';
 
 (async () => {
     try {
-        fs.writeFileSync(COUNTER_FILE, '0');
+        if (!fs.existsSync(COUNTER_FILE)) {
+            fs.writeFileSync(COUNTER_FILE, '0');
+        }
         const requestListener = function (req, res) {
             res.writeHead(200);
             let counter = parseInt(fs.readFileSync(COUNTER_FILE).toString(), 10);
